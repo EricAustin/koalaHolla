@@ -5,13 +5,17 @@
     <title>Koalla Holla</title>
     <script src="vendors/jquery.js" charset="utf-8"></script>
     <script src="scripts/client.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <img src="images/icon.png" />
+    <img src="https://media.tenor.com/images/13154ab2e9129891f2aaf2342e1a5e04/tenor.gif" style="width: 200px;"/>
+    <img src="images/icon.png" height="150px" width="150px"/>
+    <div id=coInfo>
     <h1>Koala Holla</h1>
     <h2>1976 Llama Comma Drive</h2>
     <h2>Walla Walla, WA</h2>
+    </div>
     <div id="addKoala">
       <h2>Add Koala</h2>
       <input type="text" id="nameIn" value="" placeholder="Name">
@@ -20,22 +24,27 @@
       <input type="text" id="readyForTransferIn" value="" placeholder="Transfer">
       <input type="text" id="notesIn" value="" placeholder="Notes">
       <button type="button" id="addButton">Add Koala</button>
+      <button type="button" id="updateButton">Koala Editinator</button>
     </div>
     <div>
       <h2>All Koalas</h2>
       <table>
         <thead>
           <tr>
+            <th>ID</th>
             <th>Name</th>
             <th>Age</th>
             <th>Gender</th>
             <th>Ready for Transfer</th>
             <th>Mark Ready</th>
             <th>Notes</th>
+            <th></th>
           </tr>
         </thead>
+        <form>
         <tbody id="viewKoalas">
         </tbody>
+      </form>
       </table>
     </div>
   </body>

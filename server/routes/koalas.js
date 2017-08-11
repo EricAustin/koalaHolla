@@ -72,8 +72,8 @@ router.delete('/:id', function(req, res){
 	});
 });
 
-router.get('/', function (req, res) {
-	pool.connect(function (errorConnectingToDatabase, client, done) {
+router.get('/', function (req, res) {//connects to koala DB 
+	pool.connect(function (errorConnectingToDatabase, client, done) {//existing parameters to be passed under conditions 
 		if (errorConnectingToDatabase) {
 			console.log('Error connecting to database', errorConnectingToDatabase);
 			res.sendStatus(500);
@@ -81,10 +81,10 @@ router.get('/', function (req, res) {
 			client.query('SELECT * FROM koalaholla;', function (errorMakingQuery, result) {
 				done();
 				if (errorMakingQuery) {
-					console.log('Error making database query', errorMakingQuery);
+					console.log('Error making database query', errorMakingQuery);//sends error mes
 					res.sendStatus(500);
 				} else {
-					res.send(result.rows);
+					res.send(result.rows); //sends back the data from DB
 				}
 			});
 		}

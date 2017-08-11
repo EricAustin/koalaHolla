@@ -1,3 +1,46 @@
-table td {
-    border: 1px solid #666;
+body {
+    background-color: #4374EA;
+    margin: auto;
+    width: 70%;
+    font-family: Merriweather;
+}
+
+h2 {
+    font-style: italic;
+    
+}
+
+#coInfo {
+    float: right;
+}
+
+#addKoala {
+    background-color: beige;
+    border-radius: 10px;
+    border: 2px solid black;
+    margin: auto;
+    padding: 10px;   
+}
+
+
+
+table {
+    background-color: beige;
+    border-radius: 5px;
+    border: 2px solid black;
+    border-collapse: collapse;
+    margin: auto;
+    width: 95%;
+}
+
+th, td {
+    border: 1px solid black;
+    border-radius: 5px;
+    border-collapse: collapse;
+    
+ }
+
+img {
+    border-radius: 15px;
+    margin-top: 15px;
 }

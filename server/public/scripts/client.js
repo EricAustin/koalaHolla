@@ -20,7 +20,7 @@ $(document).ready(function () {
       notes: $('#notesIn').val()
     };
 
-   
+
 
 
     // call saveKoala with the new obejct
@@ -32,7 +32,7 @@ $(document).ready(function () {
     $.ajax({
       method: 'DELETE',
       url: '/koalas/' + koalaId,
-      success: function(response) {
+      success: function (response) {
         getKoalas();
       }
     });
@@ -43,11 +43,15 @@ $(document).ready(function () {
     $.ajax({
       method: 'PUT',
       url: '/koalas/' + koalaId,
-      success: function(response) {
+      success: function (response) {
         getKoalas();
       }
     });
   });
+  //   $('#updateButton').click(function() {//incomplete!!!!!
+  //     $("").prop("checked", true)
+
+  //  });
 }); // end doc ready
 
 function getKoalas() {
@@ -55,10 +59,10 @@ function getKoalas() {
   // ajax call to server to get koalas
   $.ajax({
     url: '/koalas',
-    type: 'GET',
-    success: function (data) {
+    type: 'GET',//grab entire table from DB
+    success: function (data) {//data is result of success
       console.log('got some koalas: ', data);
-      drawKoalas(data);
+      drawKoalas(data);//pass the table to drawKoalas function
     } // end success
   }); //end ajax
   // display on DOM with buttons that allow edit of each
@@ -88,30 +92,32 @@ function drawKoalas(data) {
     var $koalaRow = $('<tr></tr>');
     $koalaRow.data('id', koala.id);
 
-    if(koala.ready_for_transfer === true) {
+    if (koala.ready_for_transfer === true) {//prepend all the crap below when true to koalaRow see row 92
       $koalaRow.prepend(
+        '<td><input type="radio" name="koala" id=' + koala.id + '></td>' +
         '<td>' + koala.name + '</td>' +
         '<td>' + koala.age + '</td>' +
         '<td>' + koala.gender + '</td>' +
         '<td>' + koala.ready_for_transfer + '</td>' +
-        '<td>' + '</td>' +      
-        '<td>' + koala.notes + '</td>' +      
+        '<td>' + '</td>' +
+        '<td>' + koala.notes + '</td>' +
         '<td> <button class="deleteButton">DELETE ME</button></td>'
       );
     } else {
       $koalaRow.prepend(
+        '<td><input type="radio" name="koala" id=' + koala.id + '></td>' +
         '<td>' + koala.name + '</td>' +
         '<td>' + koala.age + '</td>' +
         '<td>' + koala.gender + '</td>' +
         '<td>' + koala.ready_for_transfer + '</td>' +
         '<td> <button class="transferButton">Ready for Transfer</button></td>' +
-        '<td>' + koala.notes + '</td>' +      
+        '<td>' + koala.notes + '</td>' +
         '<td> <button class="deleteButton">DELETE ME</button></td>'
       );
     }
-    
 
-    $('#viewKoalas').prepend($koalaRow);
+
+    $('#viewKoalas').prepend($koalaRow);//puts koalaRow on tb for viewKoalas
 
     // 1. create <tr> = $koalaRow
     // 2. add id with data
