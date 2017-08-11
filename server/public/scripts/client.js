@@ -57,9 +57,9 @@ function drawKoalas(data) {
     $('#viewKoalas').prepend(
       '<tr>' +
         '<td>' + koala.name + '</td>' +
-        '<td>' + koala.sex + '</td>' +
+        '<td>' + koala.gender + '</td>' +
         '<td>' + koala.age + '</td>' +
-        '<td>' + koala.readyForTransfer + '</td>' +
+        '<td>' + koala.ready_for_transfer + '</td>' +
         '<td>' + koala.notes + '</td>' +
       '</tr>'
     );
