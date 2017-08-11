@@ -11,7 +11,7 @@ $(document).ready(function () {
     // get user input and put in an object
     // NOT WORKING YET :(
     // using a test object
-    
+
     var objectToSend = {
       name: $('#nameIn').val(),
       age: $('#ageIn').val(),
@@ -19,11 +19,27 @@ $(document).ready(function () {
       readyForTransfer: $('#readyForTransferIn').val(),
       notes: $('#notesIn').val()
     };
-    
-    
+
+   
+
+
     // call saveKoala with the new obejct
     saveKoala(objectToSend);
   }); //end addButton on click
+
+  $('body').on('click', '.deleteButton', function () {
+    var koalaId = $(this).parent().parent().data().id;
+    $.ajax({
+      method: 'DELETE',
+      url: '/koalas/' + koalaId,
+      success: function(response) {
+        getKoalas();
+      },
+      error: function(error) {
+        console.log(error.status);
+      }
+    })
+  });
 }); // end doc ready
 
 function getKoalas() {
@@ -58,14 +74,25 @@ function drawKoalas(data) {
   $('#viewKoalas').empty();
   for (var i = 0; i < data.length; i++) {
     var koala = data[i];
-    $('#viewKoalas').prepend(
-      '<tr>' +
-        '<td>' + koala.name + '</td>' +
-        '<td>' + koala.age + '</td>' +
-        '<td>' + koala.gender + '</td>' +
-        '<td>' + koala.ready_for_transfer + '</td>' +
-        '<td>' + koala.notes + '</td>' +
-      '</tr>'
+    console.log(koala);
+    var $koalaRow = $('<tr></tr>');
+    $koalaRow.data('id', koala.id);
+
+    $koalaRow.prepend(
+      '<td>' + koala.name + '</td>' +
+      '<td>' + koala.age + '</td>' +
+      '<td>' + koala.gender + '</td>' +
+      '<td>' + koala.ready_for_transfer + '</td>' +
+      '<td>' + koala.notes + '</td>' +
+      '<td> <button class="deleteButton">DELETE ME</button></td>'
     );
+
+    $('#viewKoalas').prepend($koalaRow);
+
+    // 1. create <tr> = $koalaRow
+    // 2. add id with data
+    // 3. append/prepend td stuff to tr
+    // 4. prepend tr to #viewKoalas
+
   }
 }
