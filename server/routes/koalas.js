@@ -26,30 +26,28 @@ router.post('/', function (req, res) {
 });
 
 
-// router.put('/:id', function(req, res){
-// 	var koalaId = req.params.id;
-// 	console.log('');
-// 	pool.connect(function(errorConnectingToDatabase, client, done){
-// 		if(errorConnectingToDatabase) {
-// 			console.log('Error connecting to database', errorConnectingToDatabase);
-// 			res.sendStatus(500);
-// 		} else {
-// 			client.query('', 
-// 							[], 
-// 							function(errorMakingQuery, result) {
-// 				done();
-// 				if(errorMakingQuery) {
-// 					console.log('Error making database query', errorMakingQuery);
-// 					res.sendStatus(500);
-// 				} else {
-// 					res.sendStatus(200);
-// 				}
-// 			});
-// 		}
-// 	});
-
-
-// });
+router.put('/:id', function(req, res){
+	var koalaId = req.params.id;
+	console.log('');
+	pool.connect(function(errorConnectingToDatabase, client, done){
+		if(errorConnectingToDatabase) {
+			console.log('Error connecting to database', errorConnectingToDatabase);
+			res.sendStatus(500);
+		} else {
+			client.query('UPDATE koalaholla SET ready_for_transfer=$1 WHERE id=$2', //why doesn't this work? UPDATE koalaholla SET ready_for_transfer="Y" WHERE id=$1
+							['Y', koalaId], 
+							function(errorMakingQuery, result) {
+				done();
+				if(errorMakingQuery) {
+					console.log('Error making database query', errorMakingQuery);
+					res.sendStatus(500);
+				} else {
+					res.sendStatus(200);
+				}
+			});
+		}
+	});
+});
 
 router.delete('/:id', function(req, res){
 	var koalaId = req.params.id; 
@@ -60,7 +58,7 @@ router.delete('/:id', function(req, res){
 			res.sendStatus(500);
 		} else {
 			client.query('DELETE FROM koalaholla WHERE id=$1', 
-							[req.params.id], 
+							[koalaId], 
 							function(errorMakingQuery, result) {
 				done();
 				if(errorMakingQuery) {

@@ -34,11 +34,19 @@ $(document).ready(function () {
       url: '/koalas/' + koalaId,
       success: function(response) {
         getKoalas();
-      },
-      error: function(error) {
-        console.log(error.status);
       }
-    })
+    });
+  });
+
+  $('body').on('click', '.transferButton', function () {
+    var koalaId = $(this).parent().parent().data().id;
+    $.ajax({
+      method: 'PUT',
+      url: '/koalas/' + koalaId,
+      success: function(response) {
+        getKoalas();
+      }
+    });
   });
 }); // end doc ready
 
@@ -70,6 +78,8 @@ function saveKoala(newKoala) {
   }); //end ajax
 }
 
+//function 
+
 function drawKoalas(data) {
   $('#viewKoalas').empty();
   for (var i = 0; i < data.length; i++) {
@@ -78,14 +88,28 @@ function drawKoalas(data) {
     var $koalaRow = $('<tr></tr>');
     $koalaRow.data('id', koala.id);
 
-    $koalaRow.prepend(
-      '<td>' + koala.name + '</td>' +
-      '<td>' + koala.age + '</td>' +
-      '<td>' + koala.gender + '</td>' +
-      '<td>' + koala.ready_for_transfer + '</td>' +
-      '<td>' + koala.notes + '</td>' +
-      '<td> <button class="deleteButton">DELETE ME</button></td>'
-    );
+    if(koala.ready_for_transfer === true) {
+      $koalaRow.prepend(
+        '<td>' + koala.name + '</td>' +
+        '<td>' + koala.age + '</td>' +
+        '<td>' + koala.gender + '</td>' +
+        '<td>' + koala.ready_for_transfer + '</td>' +
+        '<td>' + '</td>' +      
+        '<td>' + koala.notes + '</td>' +      
+        '<td> <button class="deleteButton">DELETE ME</button></td>'
+      );
+    } else {
+      $koalaRow.prepend(
+        '<td>' + koala.name + '</td>' +
+        '<td>' + koala.age + '</td>' +
+        '<td>' + koala.gender + '</td>' +
+        '<td>' + koala.ready_for_transfer + '</td>' +
+        '<td> <button class="transferButton">Ready for Transfer</button></td>' +
+        '<td>' + koala.notes + '</td>' +      
+        '<td> <button class="deleteButton">DELETE ME</button></td>'
+      );
+    }
+    
 
     $('#viewKoalas').prepend($koalaRow);
 
