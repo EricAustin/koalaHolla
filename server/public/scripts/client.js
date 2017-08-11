@@ -11,14 +11,16 @@ $(document).ready(function () {
     // get user input and put in an object
     // NOT WORKING YET :(
     // using a test object
+    
     var objectToSend = {
-      name: 'testName',
-      age: 'testName',
-      gender: 'testName',
-      readyForTransfer: 'testName',
-      notes: 'testName',
+      name: $('#nameIn').val(),
+      age: $('#ageIn').val(),
+      gender: $('#genderIn').val(),
+      readyForTransfer: $('#readyForTransferIn').val(),
+      notes: $('#notesIn').val()
     };
-
+    
+    
     // call saveKoala with the new obejct
     saveKoala(objectToSend);
   }); //end addButton on click
@@ -47,18 +49,20 @@ function saveKoala(newKoala) {
     data: newKoala,
     success: function (data) {
       console.log('got some koalas: ', data);
+      getKoalas();
     } // end success
   }); //end ajax
 }
 
 function drawKoalas(data) {
+  $('#viewKoalas').empty();
   for (var i = 0; i < data.length; i++) {
     var koala = data[i];
     $('#viewKoalas').prepend(
       '<tr>' +
         '<td>' + koala.name + '</td>' +
-        '<td>' + koala.gender + '</td>' +
         '<td>' + koala.age + '</td>' +
+        '<td>' + koala.gender + '</td>' +
         '<td>' + koala.ready_for_transfer + '</td>' +
         '<td>' + koala.notes + '</td>' +
       '</tr>'
